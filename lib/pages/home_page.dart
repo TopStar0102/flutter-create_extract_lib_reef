@@ -13,7 +13,6 @@ import 'package:reef_mobile_app/components/modals/account_modals.dart';
 import 'package:reef_mobile_app/components/modals/add_account_modal.dart';
 import 'package:reef_mobile_app/model/ReefAppState.dart';
 import 'package:reef_mobile_app/model/tokens/TokenWithAmount.dart';
-import 'package:reef_mobile_app/pages/test_page.dart';
 import 'package:reef_mobile_app/utils/elements.dart';
 import 'package:reef_mobile_app/utils/functions.dart';
 import 'package:reef_mobile_app/utils/gradient_text.dart';
@@ -40,24 +39,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _navigateTestPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const TestPage()),
-    );
-  }
-
   final double _textSize = 120.0;
   final bool _isScrolling = false;
 
   final List _viewsMap = const [
     {"key": 0, "name": "Tokens", "component": TokenView()},
-    /*{
-      "key": 1,
-      "name": "Stakings",
-      "active": false,
-      "component": const StakingView()
-    },*/
     {"key": 1, "name": "NFTs", "component": NFTView()},
     {"key": 2, "name": "Activity", "component": ActivityView()}
   ];
@@ -165,31 +151,10 @@ class _HomePageState extends State<HomePage> {
               physics: const BouncingScrollPhysics(),
               clipBehavior: Clip.none,
               slivers: [
-                /*Row(children: [
-                ElevatedButton(
-                  child: const Text('test dApp 1'),
-                  onPressed: () => _navigateTestDApp(
-                      "https://mobile-dapp-test.web.app/testnet"),
-                  // https://min-dapp.web.app
-                  // https://app.reef.io
-                ),
-                ElevatedButton(
-                  child: const Text('test dApp 2'),
-                  onPressed: () => _navigateTestDApp(
-                      "https://console.reefscan.com/#/settings/metadata"),
-                ),
-                ElevatedButton(
-                    child: const Text('test'), onPressed: _navigateTestPage),
-              ]),*/
                 SliverPersistentHeader(delegate: _BalanceHeaderDelegate()),
                 SliverPinnedHeader(
                   child: navSection(),
                 ),
-                // SliverToBoxAdapter(
-                //   child: AnimatedContainer(
-                //       duration: const Duration(milliseconds: 200),
-                //       height: _isScrolling ? 16 : 0),
-                // ),
                 Observer(builder: (_) {
                   final accsFeedbackDataModel =
                       ReefAppState.instance.model.accounts.accountsFDM;

@@ -6,11 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_auth/local_auth.dart';
-import 'package:reef_mobile_app/components/introduction_page/hero_video.dart';
 import 'package:reef_mobile_app/model/StorageKey.dart';
 import 'package:reef_mobile_app/model/locale/LocaleCtrl.dart';
 import 'package:reef_mobile_app/model/locale/locale_model.dart';
-import 'package:reef_mobile_app/pages/introduction_page.dart';
 import 'package:reef_mobile_app/utils/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +26,6 @@ final navigatorKey = GlobalKey<NavigatorState>();
 class SplashApp extends StatefulWidget {
   final JsApiService reefJsApiService = JsApiService.reefAppJsApi();
   WidgetCallback displayOnInit;
-  final Widget heroVideo = const HeroVideo();
 
   SplashApp({
     required Key key,
@@ -188,78 +185,6 @@ class _SplashAppState extends State<SplashApp> {
 
     return Stack(children: <Widget>[
       widget.reefJsApiService.widget,
-      if ((loaded == false || _isAuthenticated == false) ||
-          _isFirstLaunch == null)
-        Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              color: Styles.splashBackgroundColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/images/intro.gif",
-                    height: 128.0,
-                    width: 128.0,
-                  ),
-                  const Gap(16),
-                  Visibility(
-                    maintainSize: true,
-                    maintainAnimation: true,
-                    maintainState: true,
-                    visible: _requiresAuth && !_isAuthenticated,
-                    child: _buildAuth(),
-                  ),
-                ],
-              ),
-            ),
-            Positioned(
-              bottom: 24,
-              right: 24,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 250),
-                curve: Curves.easeInOutCirc,
-                opacity: _isGifFinished && _isAuthenticated ? 1 : 0,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Loading App",
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: Styles.textLightColor,
-                          decoration: TextDecoration.none),
-                    ),
-                    const Gap(4),
-                    const SizedBox(
-                      height: 12,
-                      width: 12,
-                      child: CircularProgressIndicator.adaptive(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                              Styles.textLightColor)),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        )
-      else if (_isFirstLaunch == true &&
-          loaded == true &&
-          _isAuthenticated == true)
-        IntroductionPage(
-          heroVideo: widget.heroVideo,
-          onDone: () async {
-            await ReefAppState.instance.storage.setValue(_firstLaunch, false);
-            setState(() {
-              _isFirstLaunch = false;
-            });
-          },
-        )
-      else
         widget.displayOnInit(),
     ]);
   }
