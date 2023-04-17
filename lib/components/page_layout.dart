@@ -10,7 +10,6 @@ import 'package:reef_mobile_app/model/navigation/navigation_model.dart';
 import 'package:reef_mobile_app/pages/accounts_page.dart';
 import 'package:reef_mobile_app/pages/home_page.dart';
 import 'package:reef_mobile_app/pages/send_page.dart';
-import 'package:reef_mobile_app/pages/settings_page.dart';
 import 'package:reef_mobile_app/pages/swap_page.dart';
 import 'package:reef_mobile_app/utils/constants.dart';
 import 'package:reef_mobile_app/utils/liquid_edge/liquid_carousel.dart';
@@ -54,8 +53,6 @@ class _BottomNavState extends State<BottomNav> {
 
       case NavigationPage.accounts:
         return AccountsPage();
-      case NavigationPage.settings:
-        return const SettingsPage();
       case NavigationPage.swap:
         return SwapPage(ReefAppState.instance.model.navigationModel.data ??
             Constants.REEF_TOKEN_ADDRESS);
@@ -65,9 +62,6 @@ class _BottomNavState extends State<BottomNav> {
   }
 
   void _onItemTapped(int index) async {
-    print(index);
-    print(bottomNavigationBarItems[index].page);
-    print(bottomNavigationBarItems[index].label);
     ReefAppState.instance.navigationCtrl
         .navigate(bottomNavigationBarItems[index].page);
   }
@@ -78,27 +72,10 @@ class _BottomNavState extends State<BottomNav> {
       page: NavigationPage.home,
       label: 'Home',
     ),
-    // BottomNavigationBarItem(
-    //   icon: Icon(CupertinoIcons.arrow_right_arrow_left_square),
-    //   label: 'Swap',
-    // ),
-    // BottomNavigationBarItem(
-    //   icon: Icon(CupertinoIcons.money_dollar_circle),
-    //   label: 'Buy',
-    // ),
     BarItemNavigationPage(
       icon: Icon(Icons.account_balance_wallet_outlined),
       page: NavigationPage.accounts,
-      //  SvgIcon(
-      //   'assets/images/reef_icon.svg',
-      //   height: 20,
-      // ),
       label: 'Accounts',
-    ),
-    BarItemNavigationPage(
-      icon: Icon(Icons.settings_outlined),
-      page: NavigationPage.settings,
-      label: 'Settings',
     ),
   ];
 
@@ -123,8 +100,6 @@ class _BottomNavState extends State<BottomNav> {
                   color: Styles.primaryBackgroundColor,
                 ),
                 Column(
-                  // physics: const NeverScrollableScrollPhysics(),
-                  // padding: const EdgeInsets.symmetric(vertical: 0),
                   children: <Widget>[
                     Material(
                       elevation: 3,
@@ -142,34 +117,21 @@ class _BottomNavState extends State<BottomNav> {
                           child: topBar(context)),
                     ),
                     Expanded(
-                        child: LiquidCarousel(
-                      parentContext: context,
-                      key: _liquidCarouselKey,
-                      cyclic: false,
-                      onSwipe: (int index) {
-                        ReefAppState.instance.model.navigationModel
-                            .navigate(bottomNavigationBarItems[index - 1].page);
-                      },
+                      child: LiquidCarousel(
+                        parentContext: context,
+                        key: _liquidCarouselKey,
+                        cyclic: false,
+                        onSwipe: (int index) {
+                          ReefAppState.instance.model.navigationModel
+                              .navigate(bottomNavigationBarItems[index - 1].page);
+                        },
                       children: [
                         const LiquidCarouselWrapper(),
                         const HomePage(key: PageStorageKey("homepage")),
                         AccountsPage(key: const PageStorageKey("accountPage")),
-                        const SettingsPage(key: PageStorageKey("settingsPage")),
                         const LiquidCarouselWrapper()
                       ],
                     )),
-                    // Expanded(
-                    //   child: Container(
-                    //     padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
-                    //     width: double.infinity,
-                    //     child: Observer(builder: (_) {
-                    //       print(
-                    //           'DISPLAY PAGE =${ReefAppState.instance.navigation.currentPage}');
-                    //       return _getWidget(
-                    //           ReefAppState.instance.navigation.currentPage);
-                    //     }),
-                    //   ),
-                    // )
                   ],
                 ),
               ],
