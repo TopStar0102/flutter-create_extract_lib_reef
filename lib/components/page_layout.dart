@@ -10,6 +10,7 @@ import 'package:reef_mobile_app/model/navigation/navigation_model.dart';
 import 'package:reef_mobile_app/pages/accounts_page.dart';
 import 'package:reef_mobile_app/pages/home_page.dart';
 import 'package:reef_mobile_app/pages/send_page.dart';
+import 'package:reef_mobile_app/pages/settings_page.dart';
 import 'package:reef_mobile_app/pages/swap_page.dart';
 import 'package:reef_mobile_app/utils/constants.dart';
 import 'package:reef_mobile_app/utils/liquid_edge/liquid_carousel.dart';
@@ -53,6 +54,8 @@ class _BottomNavState extends State<BottomNav> {
 
       case NavigationPage.accounts:
         return AccountsPage();
+      case NavigationPage.settings:
+        return const SettingsPage();
       case NavigationPage.swap:
         return SwapPage(ReefAppState.instance.model.navigationModel.data ??
             Constants.REEF_TOKEN_ADDRESS);
@@ -76,6 +79,11 @@ class _BottomNavState extends State<BottomNav> {
       icon: Icon(Icons.account_balance_wallet_outlined),
       page: NavigationPage.accounts,
       label: 'Accounts',
+    ),
+    BarItemNavigationPage(
+      icon: Icon(Icons.settings_outlined),
+      page: NavigationPage.settings,
+      label: 'Settings',
     ),
   ];
 
@@ -129,6 +137,7 @@ class _BottomNavState extends State<BottomNav> {
                         const LiquidCarouselWrapper(),
                         const HomePage(key: PageStorageKey("homepage")),
                         AccountsPage(key: const PageStorageKey("accountPage")),
+                        const SettingsPage(key: PageStorageKey("settingsPage")),
                         const LiquidCarouselWrapper()
                       ],
                     )),

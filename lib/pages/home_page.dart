@@ -54,13 +54,6 @@ class _HomePageState extends State<HomePage> {
         HapticFeedback.selectionClick();
         ReefAppState.instance.navigationCtrl
             .navigateHomePage(member["key"] as int);
-        // List temp = _viewsMap;
-        // for (var element in temp) {
-        //   element["active"] = (element["name"] == member["name"]);
-        // }
-        // setState(() {
-        //   _viewsMap = temp;
-        // });
       },
       child: Observer(builder: (_) {
         final index =
@@ -166,19 +159,12 @@ class _HomePageState extends State<HomePage> {
                           child: createAccountBox(context),
                         ));
                   }
-                  // return Text('len=${accsFeedbackDataModel.data.length}');
                   final index = ReefAppState
                       .instance.model.homeNavigationModel.currentIndex;
                   return SliverClip(
                     child: _viewsMap[index]["component"],
                   );
                 }),
-
-                // height: ((size.height + 64) / 2),
-                // width: double.infinity,
-
-                // TODO: ADD ALERT SYSTEM FOR ERRORS HERE
-                // test()
               ],
             ))));
   }

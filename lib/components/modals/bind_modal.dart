@@ -101,7 +101,6 @@ class _BindEvmState extends State<BindEvm> {
   }
 
   Future<void> startFunding() async {
-    print('abbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
     print(SendStatus.SIGNING);
     setState(() {
       statusValue = SendStatus.SIGNING;
@@ -109,14 +108,9 @@ class _BindEvmState extends State<BindEvm> {
 
     setStatusOnSignatureClosed();
 
-    print(statusValue);
-
     Completer<void> transactionSigned = Completer();
 
-    print('sda;jdaskfjl;sakjfafsajdf;asdf');
     Stream<dynamic> transferTransactionFeedbackStream = await executeTransferTransaction();
-
-    print(transferTransactionFeedbackStream);
 
     transferTransactionFeedbackStream =
         transferTransactionFeedbackStream.asBroadcastStream();
@@ -200,7 +194,6 @@ class _BindEvmState extends State<BindEvm> {
         decimals: 18,
         amount: BigInt.from(MIN_BALANCE * 1e18),
         price: null);
-    print(selectedAccount);
     return ReefAppState.instance.transferCtrl.transferTokensStream(
         selectedAccount?.address ?? transferBalanceFrom.address,
         widget.bindFor.address,
@@ -390,7 +383,6 @@ class _BindEvmState extends State<BindEvm> {
   }
 
   Widget buildFundTransaction() {
-    print('buildFundTransaction-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -452,7 +444,6 @@ class _BindEvmState extends State<BindEvm> {
   }
 
   Widget buildFund() {
-    print('buildFound-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -483,7 +474,6 @@ class _BindEvmState extends State<BindEvm> {
 
   @override
   Widget build(BuildContext context) {
-    print(currentStep);
     return SignatureContentToggle(
       Padding(
         padding: const EdgeInsets.fromLTRB(24, 0, 24, 32.0),

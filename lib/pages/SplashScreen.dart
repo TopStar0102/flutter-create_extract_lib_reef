@@ -54,7 +54,6 @@ class _SplashAppState extends State<SplashApp> {
 
   static const _firstLaunch = "firstLaunch";
   bool _hasError = false;
-  bool _isGifFinished = false;
   bool _requiresAuth = false;
   bool _isAuthenticated = false;
   bool _wrongPassword = false;
@@ -97,11 +96,6 @@ class _SplashAppState extends State<SplashApp> {
     _checkIfFirstLaunch().then((value) {
       setState(() {
         _isFirstLaunch = value;
-      });
-    });
-    Timer(const Duration(milliseconds: 3830), () {
-      setState(() {
-        _isGifFinished = true;
       });
     });
     _passwordController.addListener(() {
